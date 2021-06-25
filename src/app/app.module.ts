@@ -20,9 +20,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { CategoryComponent } from './components/category/category.component';
+import { IngredientComponent } from './ingredient/ingredient.component';
+import { CharacteristicComponent } from './components/characteristic/characteristic.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, MainNavComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    MainNavComponent,
+    CategoryComponent,
+    IngredientComponent,
+    CharacteristicComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

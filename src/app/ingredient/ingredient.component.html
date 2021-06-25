@@ -1,0 +1,38 @@
+<div class="general">
+    <div class="form">
+        <div class="from-content">
+            <h1 class="title">Crear ingrediente</h1>
+            <form [formGroup]="formControl" class="from" (ngSubmit)="submit()">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Nombre</mat-label>
+                    <input type="text" matInput formControlName="name" placeholder="Fideos">
+                    <mat-error>
+                        El nombre es <strong>obligatorio.</strong>
+                    </mat-error>
+                </mat-form-field>
+                <div formGroupName="unit_of_measure">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Unidad de medida</mat-label>
+                        <input type="text" placeholder="Selecciona una" matInput formControlName="name"
+                            [matAutocomplete]="auto" (blur)="blurUnitOfMeasure()">
+                        <mat-error>
+                            La unidad de medida es <strong>obligatoria.</strong>
+                        </mat-error>
+                        <mat-autocomplete #auto="matAutocomplete" #select>
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name"
+                                (click)="selectUnitOfMeasure(option)">
+                                {{option.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+                <div class="buttonsForm">
+                    <button mat-raised-button color="primary" class="buttonSave">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="table">
+
+    </div>
+</div>

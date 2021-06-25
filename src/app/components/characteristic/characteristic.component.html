@@ -1,0 +1,22 @@
+<div class="general">
+    <div class="form">
+        <div class="from-content">
+            <h1 class="title">Crear caracteristica</h1>
+            <form [formGroup]="formControl" class="from" (ngSubmit)="submit()">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Nombre</mat-label>
+                    <input type="text" matInput formControlName="name" placeholder="Fideos">
+                    <mat-error>
+                        El nombre es <strong>obligatorio.</strong>
+                    </mat-error>
+                </mat-form-field>
+                <div class="buttonsForm">
+                    <button mat-raised-button color="primary" class="buttonSave">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="table">
+
+    </div>
+</div>
