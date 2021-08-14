@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { Ingredient } from '../interfaces/ingredient';
-import { IngredientService } from '../services/ingredient/ingredient.service';
+import { Ingredient } from '../../interfaces/ingredient';
+import { IngredientService } from '../../services/ingredient/ingredient.service';
 
 @Component({
   selector: 'app-ingredient',
@@ -17,18 +17,18 @@ export class IngredientComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     unit_of_measure: new FormGroup({
       name: new FormControl('', [Validators.required]),
-      id: new FormControl(-1, [Validators.required]),
+      id: new FormControl('', [Validators.required]),
     }),
   });
 
   options = [
-    { name: 'Miligramo', id: 1 },
-    { name: 'Gramo', id: 2 },
-    { name: 'Kilogramo', id: 3 },
-    { name: 'unidad', id: 4 },
+    { name: 'Peso (kg, g, mg)', id: 'weight' },
+    { name: 'Litro (l, ml)', id: 'liter' },
+    { name: 'Logintud (m, cm, mm)', id: 'length' },
+    { name: 'Unidad', id: 'unit' },
   ];
 
-  filteredOptions: Observable<{ name: string; id: number }[]> | null = null;
+  filteredOptions: Observable<{ name: string; id: string }[]> | null = null;
 
   ngOnInit(): void {
     this.filteredOptions =
@@ -38,7 +38,7 @@ export class IngredientComponent implements OnInit {
       );
   }
 
-  private _filter(value: string): { name: string; id: number }[] {
+  private _filter(value: string): { name: string; id: string }[] {
     const filterValue = value?.toLowerCase();
 
     if (filterValue) {
@@ -62,8 +62,8 @@ export class IngredientComponent implements OnInit {
       );
     }
   };
-  selectUnitOfMeasure = (option: { name: string; id: number }) => {
-    if (option.id > 0) {
+  selectUnitOfMeasure = (option: { name: string; id: string }) => {
+    if (option.id) {
       this.formControl.value.unit_of_measure = {
         name: option.name,
         id: option.id,
@@ -71,7 +71,7 @@ export class IngredientComponent implements OnInit {
     }
   };
   blurUnitOfMeasure = () => {
-    if (this.formControl.value.unit_of_measure.id === -1) {
+    if (!this.formControl.value.unit_of_measure.id) {
       this.formControl.controls.unit_of_measure.reset();
     }
   };

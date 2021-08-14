@@ -20,9 +20,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { CategoryComponent } from './components/category/category.component';
-import { IngredientComponent } from './ingredient/ingredient.component';
+import { CategoryFormComponent } from './components/category/category-form/categoryForm.component';
+import { IngredientComponent } from './components/ingredient/ingredient.component';
 import { CharacteristicComponent } from './components/characteristic/characteristic.component';
+import { CategoryTableComponent } from './components/category/category-table/category-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
   declarations: [
@@ -30,9 +35,12 @@ import { CharacteristicComponent } from './components/characteristic/characteris
     LoginComponent,
     HomeComponent,
     MainNavComponent,
-    CategoryComponent,
+    CategoryFormComponent,
     IngredientComponent,
     CharacteristicComponent,
+    CategoryTableComponent,
+    CategoryComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -49,6 +57,9 @@ import { CharacteristicComponent } from './components/characteristic/characteris
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [
     {

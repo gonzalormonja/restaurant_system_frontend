@@ -4,7 +4,7 @@ import { CharacteristicComponent } from './components/characteristic/characteris
 import { LoginComponent } from './components/auth/login/login.component';
 import { CategoryComponent } from './components/category/category.component';
 import { HomeComponent } from './components/home/home.component';
-import { IngredientComponent } from './ingredient/ingredient.component';
+import { IngredientComponent } from './components/ingredient/ingredient.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 
 const routes: Routes = [

@@ -22,11 +22,33 @@ export class CategoryService {
     }),
   };
 
-  save = (category: Category): Observable<Category> => {
+  save = (category: {
+    name: string;
+    idCategory: number;
+  }): Observable<Category> => {
     return this.http.post<Category>(
       `${this.basePath}/`,
       category,
       this.headers
     );
+  };
+
+  get = (
+    search = '',
+    columnOrder = 'id',
+    order = 'desc',
+    pageNumber = 0,
+    pageSize = 10
+  ) => {
+    return this.http.get<Category[]>(`${this.basePath}/`, {
+      ...this.headers,
+      params: {
+        search: search,
+        columnOrder: columnOrder,
+        order: order,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      },
+    });
   };
 }

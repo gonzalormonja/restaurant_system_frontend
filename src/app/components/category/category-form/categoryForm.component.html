@@ -1,0 +1,28 @@
+<div class="from-content">
+    <h1 class="title">Crear categoría</h1>
+    <form [formGroup]="formControl" class="from" (ngSubmit)="submit()">
+        <mat-form-field class="example-full-width">
+            <mat-label>Nombre</mat-label>
+            <input type="text" matInput formControlName="name" placeholder="Fideos">
+            <mat-error>
+                El nombre es <strong>obligatorio.</strong>
+            </mat-error>
+        </mat-form-field>
+        <div formGroupName="category">
+            <mat-form-field class="example-full-width">
+                <mat-label>Categoria superior</mat-label>
+                <input type="text" placeholder="Selecciona una" aria-label="Pastas" matInput formControlName="name"
+                    [matAutocomplete]="auto" (blur)="blurCategory()">
+                <mat-autocomplete #auto="matAutocomplete" #select>
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name"
+                        (click)="selectCategory(option)">
+                        {{option.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="buttonsForm">
+            <button mat-raised-button color="primary" class="buttonSave">Guardar</button>
+        </div>
+    </form>
+</div>

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Characteristic } from 'src/app/characteristic';
+import { Characteristic } from 'src/app/interfaces/characteristic';
 import { TokenStorageService } from '../auth/token-storage.service';
 
 @Injectable({
