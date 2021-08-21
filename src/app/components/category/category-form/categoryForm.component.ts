@@ -19,17 +19,21 @@ export class CategoryFormComponent implements OnInit {
       name: new FormControl(''),
       id: new FormControl(-1),
     }),
-  });
 
-  filteredOptions: Observable<Category[]> | null = null;
+  });
+  category_name = new FormControl('')
+
+  options:Category[] = null;
 
   ngOnInit(): void {
-    this.formControl.controls.category.valueChanges
-      .pipe(startWith(''))
-      .subscribe((value) => {
-        console.log(value)
-        this.filteredOptions = this.categoryService.get(value.name);
-      });
+    this.initForm();
+  }
+
+  initForm = () => {
+    this.getCategories();
+    this.category_name.valueChanges.subscribe(response => {
+      this.getCategories(response)
+    })
   }
 
   submit = () => {
@@ -37,7 +41,7 @@ export class CategoryFormComponent implements OnInit {
       this.categoryService
         .save({
           name: this.formControl.value.name,
-          idCategory: Number(this.formControl.controls.category.value.id),
+          idCategory: Number(this.formControl.value.category.id),
         })
         .subscribe(
           (response) => {
@@ -49,6 +53,16 @@ export class CategoryFormComponent implements OnInit {
         );
     }
   };
+
+  getCategories = (search='') => {
+    this.categoryService.get(search).subscribe( response => {
+      this.options = response;
+    })
+  }
+
+  getOptionText = (option) => {
+    return option.name;
+  }
 
   selectCategory = (option: { name: string; id: number }) => {
     if (option.id > 0) {
