@@ -13,16 +13,17 @@ export class CategoryFormComponent implements OnInit {
 
   constructor(private categoryService: CategoryService) {}
   formControl = new FormGroup({
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl('', {
+      validators: [Validators.required],
+      updateOn: 'submit',
+    }),
     category: new FormGroup({
       name: new FormControl(''),
       id: new FormControl(-1),
     }),
-
   });
-  category_name = new FormControl('')
-
-  options:Category[] = null;
+  category_name = new FormControl('');
+  options: Category[] = null;
 
   ngOnInit(): void {
     this.initForm();
@@ -30,12 +31,12 @@ export class CategoryFormComponent implements OnInit {
 
   initForm = () => {
     this.getCategories();
-    this.category_name.valueChanges.subscribe(response => {
-      this.getCategories(response)
-    })
-  }
+    this.category_name.valueChanges.subscribe((response) => {
+      this.getCategories(response);
+    });
+  };
 
-  submit = () => {
+  submit = (form) => {
     if (this.formControl.valid) {
       this.categoryService
         .save({
@@ -44,11 +45,13 @@ export class CategoryFormComponent implements OnInit {
         })
         .subscribe(
           (response) => {
+            this.resetForm(form);
             this.newRow.next({
               name: response.name,
               id: response.id,
-              category: response.category
-            })
+              category: response.category,
+            });
+            this.getCategories();
           },
           (error) => {
             console.error(error);
@@ -57,19 +60,22 @@ export class CategoryFormComponent implements OnInit {
     }
   };
 
-  getCategories = (search='') => {
-    this.categoryService.get(search).subscribe( response => {
+  getCategories = (search = '') => {
+    this.categoryService.get(search).subscribe((response) => {
       this.options = response;
-    })
-  }
+    });
+  };
 
   getOptionText = (option) => {
     return option.name;
-  }
+  };
 
   selectCategory = (option: { name: string; id: number }) => {
     if (option.id > 0) {
-      this.formControl.value.category = { name: option.name, id: option.id };
+      this.formControl.controls.category.patchValue({
+        name: option.name,
+        id: option.id,
+      });
     }
   };
   blurCategory = () => {
@@ -79,5 +85,10 @@ export class CategoryFormComponent implements OnInit {
         id: -1,
       });
     }
+  };
+  resetForm = (form) => {
+    form.resetForm();
+    this.formControl.reset();
+    this.category_name.patchValue('');
   };
 }

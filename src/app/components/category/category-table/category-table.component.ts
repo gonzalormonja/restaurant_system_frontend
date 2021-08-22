@@ -29,14 +29,9 @@ export class CategoryTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.loadData();
-    // console.log(this.dataSource)
-    this.newRow.subscribe(row => {
-      console.log('acas',row)
-      this.dataSource.addRow(row)
-      // this.table.dataSource
-      // this.dataSource.data = this.dataSource.data.slice();
-      // this.dataSource.addRow(row)
-    })
+    this.newRow.subscribe((row) => {
+      this.dataSource.addRow(row);
+    });
   }
 
   ngAfterViewInit(): void {

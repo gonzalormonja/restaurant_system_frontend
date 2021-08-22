@@ -1,6 +1,6 @@
 <div class="from-content">
     <h1 class="title">Crear categoría</h1>
-    <form [formGroup]="formControl" class="from" (ngSubmit)="submit()">
+    <form [formGroup]="formControl" class="from" #formDirective="ngForm" (ngSubmit)="submit(formDirective)">
         <mat-form-field class="example-full-width">
             <mat-label>Nombre</mat-label>
             <input type="text" matInput formControlName="name" placeholder="Fideos">
@@ -11,10 +11,10 @@
         <div formGroupName="category">
             <mat-form-field class="example-full-width">
                 <mat-label>Categoria superior</mat-label>
-                <input type="text" placeholder="Selecciona una" aria-label="Pastas" matInput [formControl]="category_name"
-                    [matAutocomplete]="auto" (blur)="blurCategory()" >
+                <input type="text" placeholder="Selecciona una" aria-label="Pastas" matInput
+                    [formControl]="category_name" [matAutocomplete]="auto" (blur)="blurCategory()">
                 <mat-autocomplete #auto="matAutocomplete" #select [displayWith]="getOptionText">
-                    <mat-option *ngFor="let option of options"  [value]="option" (click)="selectCategory(option)">
+                    <mat-option *ngFor="let option of options" [value]="option" (click)="selectCategory(option)">
                         {{option.name}}
                     </mat-option>
                 </mat-autocomplete>
