@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { Category } from 'src/app/interfaces/category';
 import { CategoryService } from 'src/app/services/category/category.service';
 
@@ -11,8 +9,9 @@ import { CategoryService } from 'src/app/services/category/category.service';
   styleUrls: ['./categoryForm.component.scss'],
 })
 export class CategoryFormComponent implements OnInit {
-  constructor(private categoryService: CategoryService) {}
+  @Input() newRow;
 
+  constructor(private categoryService: CategoryService) {}
   formControl = new FormGroup({
     name: new FormControl('', [Validators.required]),
     category: new FormGroup({
@@ -45,7 +44,11 @@ export class CategoryFormComponent implements OnInit {
         })
         .subscribe(
           (response) => {
-            console.log(response);
+            this.newRow.next({
+              name: response.name,
+              id: response.id,
+              category: response.category
+            })
           },
           (error) => {
             console.error(error);

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -14,6 +14,7 @@ import { CategoryTableDataSource } from './category-table-datasource';
   styleUrls: ['./category-table.component.scss'],
 })
 export class CategoryTableComponent implements OnInit {
+  @Input() newRow;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Category>;
@@ -28,9 +29,18 @@ export class CategoryTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.loadData();
+    // console.log(this.dataSource)
+    this.newRow.subscribe(row => {
+      console.log('acas',row)
+      this.dataSource.addRow(row)
+      // this.table.dataSource
+      // this.dataSource.data = this.dataSource.data.slice();
+      // this.dataSource.addRow(row)
+    })
   }
 
   ngAfterViewInit(): void {
+    this.table.dataSource = this.dataSource;
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(tap(() => this.loadCategoryPage()))
@@ -38,7 +48,6 @@ export class CategoryTableComponent implements OnInit {
   }
 
   loadCategoryPage = () => {
-    console.log(2, this.sort.direction);
     this.dataSource.loadData(
       '',
       this.sort.active,

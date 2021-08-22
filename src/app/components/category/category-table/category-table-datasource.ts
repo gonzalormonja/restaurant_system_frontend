@@ -53,6 +53,11 @@ export class CategoryTableDataSource extends DataSource<Category> {
         catchError(() => of([])),
         finalize(() => this.loadingSubject.next(false))
       )
-      .subscribe((category) => this.categorySubject.next(category));
+      .subscribe((categories) => this.categorySubject.next(categories));
   };
+  addRow = (row:Category) => {
+    console.log([...this.categorySubject.value,row])
+    this.categorySubject.next([...this.categorySubject.value,row]);
+    // this.categorySubject.value.push(row)
+  }
 }

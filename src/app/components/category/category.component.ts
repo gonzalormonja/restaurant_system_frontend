@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class CategoryComponent implements OnInit {
 
   constructor() { }
-
+  subject = new Subject();
   ngOnInit(): void {
   }
 
