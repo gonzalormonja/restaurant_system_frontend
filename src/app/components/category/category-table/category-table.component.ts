@@ -14,14 +14,14 @@ import { CategoryTableDataSource } from './category-table-datasource';
   styleUrls: ['./category-table.component.scss'],
 })
 export class CategoryTableComponent implements OnInit {
-  @Input() newRow;
+  @Input() subject;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Category>;
   dataSource: CategoryTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'category'];
+  displayedColumns = ['name', 'category', 'acciones'];
 
   constructor(private categoryService: CategoryService) {
     this.dataSource = new CategoryTableDataSource(this.categoryService);
@@ -29,8 +29,12 @@ export class CategoryTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.loadData();
-    this.newRow.subscribe((row) => {
-      this.dataSource.addRow(row);
+    this.subject.subscribe((subs) => {
+      if (subs.type === 'addRow') {
+        this.dataSource.addRow(subs.row);
+      } else if (subs.type === 'modifyRow') {
+        this.dataSource.modifyRow(subs.row);
+      }
     });
   }
 
@@ -49,6 +53,26 @@ export class CategoryTableComponent implements OnInit {
       this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize
+    );
+  };
+
+  edit = (category: Category) => {
+    this.subject.next({ type: 'editCategory', category: category });
+  };
+
+  delete = (id: number) => {
+    this.categoryService.delete(id).subscribe(
+      (response) => {
+        console.log(response);
+        this.dataSource.deleteRow(id);
+        this.subject.next({ type: 'refetchCategories' });
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        console.log('aca');
+      }
     );
   };
 }

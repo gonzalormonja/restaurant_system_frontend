@@ -15,6 +15,14 @@
       <td mat-cell *matCellDef="let row">{{row.category?.name}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+      <td mat-cell *matCellDef="let row">
+        <mat-icon class="icon" (click)="delete(row.id)" aria-label="Side nav toggle icon">delete</mat-icon>
+        <mat-icon class="icon" (click)="edit(row)" aria-label="Side nav toggle icon">edit</mat-icon>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

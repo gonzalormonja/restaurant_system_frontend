@@ -56,6 +56,20 @@ export class CategoryTableDataSource extends DataSource<Category> {
       .subscribe((categories) => this.categorySubject.next(categories));
   };
   addRow = (row: Category) => {
-    this.categorySubject.next([...this.categorySubject.value, row]);
+    this.categorySubject.next([row, ...this.categorySubject.value]);
+  };
+  modifyRow = (row: Category) => {
+    this.categorySubject.next([
+      row,
+      ...this.categorySubject.value.filter(
+        (category) => category.id !== row.id
+      ),
+    ]);
+  };
+  deleteRow = (id: number) => {
+    console.log('llamo');
+    this.categorySubject.next(
+      this.categorySubject.value.filter((category) => category.id !== id)
+    );
   };
 }

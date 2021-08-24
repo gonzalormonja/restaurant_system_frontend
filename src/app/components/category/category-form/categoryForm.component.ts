@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Category } from 'src/app/interfaces/category';
 import { CategoryService } from 'src/app/services/category/category.service';
 
@@ -9,7 +10,8 @@ import { CategoryService } from 'src/app/services/category/category.service';
   styleUrls: ['./categoryForm.component.scss'],
 })
 export class CategoryFormComponent implements OnInit {
-  @Input() newRow;
+  @Input() subject;
+  @ViewChild(MatAutocompleteTrigger) _auto: MatAutocompleteTrigger;
 
   constructor(private categoryService: CategoryService) {}
   formControl = new FormGroup({
@@ -23,10 +25,31 @@ export class CategoryFormComponent implements OnInit {
     }),
   });
   category_name = new FormControl('');
+  mode: 'edit' | 'save' = 'save';
+  edit_id: number = null;
   options: Category[] = null;
 
   ngOnInit(): void {
     this.initForm();
+    this.subject.subscribe((subs) => {
+      if (subs.type === 'refetchCategories') {
+        this.getCategories();
+      }
+    });
+    this.subject.subscribe((subs) => {
+      if (subs.type === 'editCategory') {
+        this.mode = 'edit';
+        this.edit_id = subs.category.id;
+        this._auto.writeValue(
+          subs.category?.category ? subs.category?.category : null
+        );
+        this.formControl.controls.name.patchValue(subs.category?.name);
+        this.formControl.controls.category.patchValue({
+          name: subs.category?.category?.name,
+          id: subs.category?.category?.id,
+        });
+      }
+    });
   }
 
   initForm = () => {
@@ -38,25 +61,54 @@ export class CategoryFormComponent implements OnInit {
 
   submit = (form) => {
     if (this.formControl.valid) {
-      this.categoryService
-        .save({
-          name: this.formControl.value.name,
-          idCategory: Number(this.formControl.value.category.id),
-        })
-        .subscribe(
-          (response) => {
-            this.resetForm(form);
-            this.newRow.next({
-              name: response.name,
-              id: response.id,
-              category: response.category,
-            });
-            this.getCategories();
-          },
-          (error) => {
-            console.error(error);
-          }
-        );
+      if (this.mode === 'save') {
+        this.categoryService
+          .save({
+            name: this.formControl.value.name,
+            idCategory: Number(this.formControl.value.category.id),
+          })
+          .subscribe(
+            (response) => {
+              this.resetForm(form);
+              this.subject.next({
+                type: 'addRow',
+                row: {
+                  name: response.name,
+                  id: response.id,
+                  category: response.category,
+                },
+              });
+              this.getCategories();
+            },
+            (error) => {
+              console.error(error);
+            }
+          );
+      } else {
+        this.categoryService
+          .edit({
+            id: this.edit_id,
+            name: this.formControl.value.name,
+            idCategory: Number(this.formControl.value.category.id),
+          })
+          .subscribe(
+            (response) => {
+              this.resetForm(form);
+              this.subject.next({
+                type: 'modifyRow',
+                row: {
+                  name: response.name,
+                  id: response.id,
+                  category: response.category,
+                },
+              });
+              this.getCategories();
+            },
+            (error) => {
+              console.error(error);
+            }
+          );
+      }
     }
   };
 
@@ -67,7 +119,7 @@ export class CategoryFormComponent implements OnInit {
   };
 
   getOptionText = (option) => {
-    return option.name;
+    return option?.name;
   };
 
   selectCategory = (option: { name: string; id: number }) => {

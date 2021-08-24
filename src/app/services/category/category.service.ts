@@ -33,6 +33,22 @@ export class CategoryService {
     );
   };
 
+  edit = (category: {
+    id: number;
+    name: string;
+    idCategory: number;
+  }): Observable<Category> => {
+    return this.http.put<Category>(
+      `${this.basePath}/${category.id}`,
+      category,
+      this.headers
+    );
+  };
+
+  delete = (id: number): Observable<boolean> => {
+    return this.http.delete<boolean>(`${this.basePath}/${id}`, this.headers);
+  };
+
   get = (
     search = '',
     columnOrder = 'id',
