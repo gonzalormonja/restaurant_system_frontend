@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -23,12 +24,18 @@ export class CategoryTableComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'category', 'acciones'];
 
+  search = new FormControl('');
+
   constructor(private categoryService: CategoryService) {
     this.dataSource = new CategoryTableDataSource(this.categoryService);
   }
 
   ngOnInit() {
     this.dataSource.loadData();
+    console.log(this.dataSource);
+    this.search.valueChanges.subscribe((val) => {
+      this.dataSource.loadData(val);
+    });
     this.subject.subscribe((subs) => {
       if (subs.type === 'addRow') {
         this.dataSource.addRow(subs.row);

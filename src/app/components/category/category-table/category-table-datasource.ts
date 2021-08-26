@@ -25,6 +25,7 @@ export class CategoryTableDataSource extends DataSource<Category> {
 
   private categorySubject = new BehaviorSubject<Category[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
+  private totalData: number = 0;
   public loading$ = this.loadingSubject.asObservable();
 
   constructor(private categoryService: CategoryService) {
@@ -38,6 +39,10 @@ export class CategoryTableDataSource extends DataSource<Category> {
     this.categorySubject.complete();
     this.loadingSubject.complete();
   }
+
+  getTotalData = () => {
+    return this.totalData;
+  };
 
   loadData = (
     search = '',
@@ -53,7 +58,10 @@ export class CategoryTableDataSource extends DataSource<Category> {
         catchError(() => of([])),
         finalize(() => this.loadingSubject.next(false))
       )
-      .subscribe((categories) => this.categorySubject.next(categories));
+      .subscribe((resp: { totalData: number; data: Category[] }) => {
+        this.totalData = resp.totalData;
+        this.categorySubject.next(resp.data);
+      });
   };
   addRow = (row: Category) => {
     this.categorySubject.next([row, ...this.categorySubject.value]);

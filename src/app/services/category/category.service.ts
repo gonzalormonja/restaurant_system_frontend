@@ -56,15 +56,18 @@ export class CategoryService {
     pageNumber = 0,
     pageSize = 10
   ) => {
-    return this.http.get<Category[]>(`${this.basePath}/`, {
-      ...this.headers,
-      params: {
-        search: search,
-        columnOrder: columnOrder,
-        order: order,
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-      },
-    });
+    return this.http.get<{ totalData: number; data: Category[] }>(
+      `${this.basePath}/`,
+      {
+        ...this.headers,
+        params: {
+          search: search,
+          columnOrder: columnOrder,
+          order: order,
+          pageNumber: pageNumber,
+          pageSize: pageSize,
+        },
+      }
+    );
   };
 }

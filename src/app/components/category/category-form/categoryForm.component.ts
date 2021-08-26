@@ -114,7 +114,7 @@ export class CategoryFormComponent implements OnInit {
 
   getCategories = (search = '') => {
     this.categoryService.get(search).subscribe((response) => {
-      this.options = response;
+      this.options = response.data;
     });
   };
 
