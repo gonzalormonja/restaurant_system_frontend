@@ -6,6 +6,8 @@ import { CategoryComponent } from './components/category/category.component';
 import { HomeComponent } from './components/home/home.component';
 import { IngredientComponent } from './components/ingredient/ingredient.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
+import { MenuComponent } from './components/menu/menu.component';
+import { MenuDetailsComponent } from './components/menu-details/menu-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuardService] },
@@ -22,6 +24,16 @@ const routes: Routes = [
   {
     path: 'characteristics',
     component: CharacteristicComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'menus',
+    component: MenuComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'menu_details',
+    component: MenuDetailsComponent,
     canActivate: [AuthGuardService],
   },
   { path: 'login', component: LoginComponent },

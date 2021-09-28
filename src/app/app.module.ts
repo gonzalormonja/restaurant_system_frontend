@@ -28,6 +28,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CategoryComponent } from './components/category/category.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { MenuFormComponent } from './components/menu/menu-form/menuForm.component';
+import { MenuTableComponent } from './components/menu/menu-table/menu-table.component';
+import { MenuDetailsComponent } from './components/menu-details/menu-details.component';
+import { Data } from './providers/data';
 
 @NgModule({
   declarations: [
@@ -40,7 +45,10 @@ import { CategoryComponent } from './components/category/category.component';
     CharacteristicComponent,
     CategoryTableComponent,
     CategoryComponent,
-    
+    MenuComponent,
+    MenuTableComponent,
+    MenuFormComponent,
+    MenuDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +77,7 @@ import { CategoryComponent } from './components/category/category.component';
     },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
+    Data,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,0 +1,38 @@
+<div class="from-content">
+    <h1 class="title">Crear categoría</h1>
+    <form [formGroup]="formControl" class="from" #formDirective="ngForm" (ngSubmit)="submit(formDirective)">
+        <mat-form-field class="example-full-width">
+            <mat-label>Nombre</mat-label>
+            <input type="text" matInput formControlName="name" placeholder="Fideos">
+            <mat-error>
+                El nombre es <strong>obligatorio.</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Nombre corto</mat-label>
+            <input type="text" matInput formControlName="short_name" placeholder="Fideos">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Precio</mat-label>
+            <input type="text" matInput formControlName="price" placeholder="Fideos">
+            <mat-error>
+                El precio es <strong>obligatorio.</strong>
+            </mat-error>
+        </mat-form-field>
+        <div formGroupName="menu">
+            <mat-form-field class="example-full-width">
+                <mat-label>Categoria</mat-label>
+                <input type="text" placeholder="Selecciona una" aria-label="Pastas" matInput
+                    [formControl]="category_name" [matAutocomplete]="auto" (blur)="blurMenu()">
+                <mat-autocomplete #auto="matAutocomplete" #select [displayWith]="getOptionText">
+                    <mat-option *ngFor="let option of options" [value]="option" (click)="selectCategory(option)">
+                        {{option.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="buttonsForm">
+            <button mat-raised-button color="primary" class="buttonSave">Guardar</button>
+        </div>
+    </form>
+</div>
