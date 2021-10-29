@@ -33,6 +33,8 @@ import { MenuFormComponent } from './components/menu/menu-form/menuForm.componen
 import { MenuTableComponent } from './components/menu/menu-table/menu-table.component';
 import { MenuDetailsComponent } from './components/menu-details/menu-details.component';
 import { Data } from './providers/data';
+import { IngredientFormComponent } from './components/ingredient/ingredient-form/ingredient-form.component';
+import { IngredientTableComponent } from './components/ingredient/ingredient-table/ingredient-table.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { Data } from './providers/data';
     MenuTableComponent,
     MenuFormComponent,
     MenuDetailsComponent,
+    IngredientFormComponent,
+    IngredientTableComponent,
   ],
   imports: [
     BrowserModule,
