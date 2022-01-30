@@ -32,7 +32,6 @@ export class CategoryTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.loadData();
-    console.log(this.dataSource);
     this.search.valueChanges.subscribe((val) => {
       this.dataSource.loadData(val);
     });
@@ -70,15 +69,11 @@ export class CategoryTableComponent implements OnInit {
   delete = (id: number) => {
     this.categoryService.delete(id).subscribe(
       (response) => {
-        console.log(response);
         this.dataSource.deleteRow(id);
         this.subject.next({ type: 'refetchCategories' });
       },
       (error) => {
         console.error(error);
-      },
-      () => {
-        console.log('aca');
       }
     );
   };

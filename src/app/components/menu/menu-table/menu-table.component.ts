@@ -37,7 +37,6 @@ export class MenuTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.loadData();
-    console.log(this.dataSource);
     this.search.valueChanges.subscribe((val) => {
       this.dataSource.loadData(val);
     });
@@ -69,21 +68,18 @@ export class MenuTableComponent implements OnInit {
   };
 
   edit = (menu: Menu) => {
+    console.log(menu);
     this.subject.next({ type: 'editMenu', menu: menu });
   };
 
   delete = (id: number) => {
     this.menuService.delete(id).subscribe(
       (response) => {
-        console.log(response);
         this.dataSource.deleteRow(id);
         this.subject.next({ type: 'refetchCategories' });
       },
       (error) => {
         console.error(error);
-      },
-      () => {
-        console.log('aca');
       }
     );
   };

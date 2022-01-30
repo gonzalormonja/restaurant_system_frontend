@@ -75,7 +75,6 @@ export class CategoryTableDataSource extends DataSource<Category> {
     ]);
   };
   deleteRow = (id: number) => {
-    console.log('llamo');
     this.categorySubject.next(
       this.categorySubject.value.filter((category) => category.id !== id)
     );

@@ -40,11 +40,6 @@ export class IngredientFormComponent implements OnInit {
       if (subs.type === 'edit') {
         this.mode = 'edit';
         this.edit_id = subs.ingredient.id;
-        console.log(
-          this.ingredientService.get_name_unit_of_measure(
-            subs.ingredient.unit_of_measure
-          )
-        );
         this._auto.writeValue(
           subs.ingredient.unit_of_measure
             ? this.ingredientService.get_name_unit_of_measure(
@@ -84,37 +79,56 @@ export class IngredientFormComponent implements OnInit {
   }
 
   submit = (form) => {
-    console.log(
-      this.formControl.value,
-      this.formControl.valid,
-      this.formControl.value.unit_of_measure.id.valid
-    );
     if (this.formControl.valid) {
-      this.ingredientService
-        .save({
-          name: this.formControl.value.name,
-          unit_of_measure: this.formControl.value.unit_of_measure.id,
-        })
-        .subscribe(
-          (response) => {
-            this.subject.next({
-              type: 'addRow',
-              row: {
-                name: response.name,
-                unit_of_measure: response.unit_of_measure,
-              },
-            });
-            this.resetForm(form);
-          },
-          (error) => {
-            console.error(error);
-          }
-        );
+      if (this.mode === 'save') {
+        this.ingredientService
+          .save({
+            name: this.formControl.value.name,
+            unit_of_measure: this.formControl.value.unit_of_measure.id,
+          })
+          .subscribe(
+            (response) => {
+              this.subject.next({
+                type: 'addRow',
+                row: {
+                  name: response.name,
+                  unit_of_measure: response.unit_of_measure,
+                },
+              });
+              this.resetForm(form);
+            },
+            (error) => {
+              console.error(error);
+            }
+          );
+      } else {
+        this.ingredientService
+          .edit({
+            id: this.edit_id,
+            name: this.formControl.value.name,
+            unit_of_measure: this.formControl.value.unit_of_measure.id,
+          })
+          .subscribe(
+            (response) => {
+              this.subject.next({
+                type: 'modifyRow',
+                row: {
+                  id: this.edit_id,
+                  name: response.name,
+                  unit_of_measure: response.unit_of_measure,
+                },
+              });
+              this.resetForm(form);
+            },
+            (error) => {
+              console.error(error);
+            }
+          );
+      }
     }
   };
   selectUnitOfMeasure = (option: { name: string; id: string }) => {
     if (option.id) {
-      console.log(option);
       this.formControl.value.unit_of_measure = {
         name: option.name,
         id: option.id,

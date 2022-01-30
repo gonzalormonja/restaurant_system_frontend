@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { Category } from 'src/app/interfaces/category';
 import { Menu } from 'src/app/interfaces/menu';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { MenuService } from 'src/app/services/menu/menu.service';
@@ -36,22 +37,21 @@ export class MenuFormComponent implements OnInit {
   category_name = new FormControl('');
   mode: 'edit' | 'save' = 'save';
   edit_id: number = null;
-  options: Menu[] = null;
+  options: Category[] = null;
 
   ngOnInit(): void {
     this.initForm();
     this.subject.subscribe((subs) => {
       if (subs.type === 'editMenu') {
-        console.log(subs);
         this.mode = 'edit';
         this.edit_id = subs.menu.id;
         this._auto.writeValue(subs.menu.category ? subs.menu.category : null);
         this.formControl.controls.name.patchValue(subs.menu?.name);
-        this.formControl.controls.price.patchValue(subs.menu?.prices[0].price);
+        this.formControl.controls.price.patchValue(subs.menu?.price);
         this.formControl.controls.short_name.patchValue(subs.menu?.short_name);
         this.formControl.controls.category.patchValue({
-          name: subs.menu?.menu?.name,
-          id: subs.menu?.menu?.id,
+          name: subs.menu?.category?.name,
+          id: subs.menu?.category?.id,
         });
       }
     });
@@ -79,11 +79,7 @@ export class MenuFormComponent implements OnInit {
               this.resetForm(form);
               this.subject.next({
                 type: 'addRow',
-                row: {
-                  name: response.name,
-                  id: response.id,
-                  category: response.category,
-                },
+                row: response,
               });
             },
             (error) => {
@@ -104,11 +100,7 @@ export class MenuFormComponent implements OnInit {
               this.resetForm(form);
               this.subject.next({
                 type: 'modifyRow',
-                row: {
-                  name: response.name,
-                  id: response.id,
-                  category: response.category,
-                },
+                row: response,
               });
             },
             (error) => {

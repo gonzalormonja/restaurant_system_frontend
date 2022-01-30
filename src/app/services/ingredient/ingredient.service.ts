@@ -42,7 +42,7 @@ export class IngredientService {
   };
 
   edit = (ingredient: Ingredient): Observable<Ingredient> => {
-    return this.http.patch<Ingredient>(
+    return this.http.put<Ingredient>(
       `${this.basePath}/${ingredient.id}`,
       ingredient,
       this.headers

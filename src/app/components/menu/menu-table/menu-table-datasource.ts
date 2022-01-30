@@ -67,7 +67,6 @@ export class MenuTableDataSource extends DataSource<Menu> {
     ]);
   };
   deleteRow = (id: number) => {
-    console.log('llamo');
     this.menuSubject.next(
       this.menuSubject.value.filter((menu) => menu.id !== id)
     );
