@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Menu } from 'src/app/interfaces/menu';
 
 @Component({
@@ -9,7 +10,7 @@ import { Menu } from 'src/app/interfaces/menu';
 export class ProductHomeComponent implements OnInit {
   @Input() product: Menu;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.product.name =
@@ -23,4 +24,10 @@ export class ProductHomeComponent implements OnInit {
         ? this.product.name
         : `${this.product.name.slice(0, 40)}...`;
   }
+
+  open_in_new_tab = () => {
+    this.router.navigate(['menu_details'], {
+      queryParams: { product_id: this.product.id },
+    });
+  };
 }

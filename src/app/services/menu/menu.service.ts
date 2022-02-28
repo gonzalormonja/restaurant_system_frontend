@@ -70,4 +70,10 @@ export class MenuService {
       }
     );
   };
+
+  get_one = (id) => {
+    return this.http.get<Menu>(`${this.basePath}/${id}`, {
+      ...this.headers,
+    });
+  };
 }

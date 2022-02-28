@@ -85,7 +85,8 @@ export class MenuTableComponent implements OnInit {
   };
 
   open_in_new_tab = (menu: Menu) => {
-    this.data.storage = { ...menu };
-    this.router.navigate(['menu_details']);
+    this.router.navigate(['menu_details'], {
+      queryParams: { product_id: menu.id },
+    });
   };
 }
