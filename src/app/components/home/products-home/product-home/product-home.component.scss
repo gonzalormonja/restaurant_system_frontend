@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    // height: 25vh;
+    width: 13vw;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    align-items: center;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.productInfo{
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+
+p{
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+img{
+    height: 30vh;
+    width: 12vw;
+    margin-bottom: 20px;
+}

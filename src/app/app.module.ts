@@ -35,6 +35,8 @@ import { MenuDetailsComponent } from './components/menu-details/menu-details.com
 import { Data } from './providers/data';
 import { IngredientFormComponent } from './components/ingredient/ingredient-form/ingredient-form.component';
 import { IngredientTableComponent } from './components/ingredient/ingredient-table/ingredient-table.component';
+import { ProductHomeComponent } from './components/home/products-home/product-home/product-home.component';
+import { ProductsHomeComponent } from './components/home/products-home/products-home.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { IngredientTableComponent } from './components/ingredient/ingredient-tab
     MenuDetailsComponent,
     IngredientFormComponent,
     IngredientTableComponent,
+    ProductHomeComponent,
+    ProductsHomeComponent,
   ],
   imports: [
     BrowserModule,
