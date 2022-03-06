@@ -17,7 +17,7 @@ export class MenuDetailsComponent implements OnInit {
     price: null,
     category_name: null,
     category: null,
-    prices: null,
+    prices: [],
   };
 
   constructor(

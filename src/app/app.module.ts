@@ -37,6 +37,8 @@ import { IngredientFormComponent } from './components/ingredient/ingredient-form
 import { IngredientTableComponent } from './components/ingredient/ingredient-table/ingredient-table.component';
 import { ProductHomeComponent } from './components/home/products-home/product-home/product-home.component';
 import { ProductsHomeComponent } from './components/home/products-home/products-home.component';
+import { ChartComponent } from './components/menu-details/chart/chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ import { ProductsHomeComponent } from './components/home/products-home/products-
     IngredientTableComponent,
     ProductHomeComponent,
     ProductsHomeComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +79,7 @@ import { ProductsHomeComponent } from './components/home/products-home/products-
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    NgChartsModule,
   ],
   providers: [
     {

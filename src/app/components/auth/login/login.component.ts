@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
 
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   submit = () => {
     this.authService
-      .login(this.loginForm.value.email, this.loginForm.value.password)
+      .login(this.loginForm.value.username, this.loginForm.value.password)
       .subscribe(
         (response) => {
           this.tokenStorageService.saveToken(response.token);

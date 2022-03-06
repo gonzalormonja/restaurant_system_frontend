@@ -1,7 +1,18 @@
-<p>ID: {{menu.id}}</p>
-<p>Nombre: {{menu.name}}</p>
-<p>Nombre corto: {{menu.short_name}}</p>
-<p>Precio: ${{menu.price}}</p>
-<p>Categoria: {{menu.category_name}}</p>
-<p>Historico de precios</p>
-<p *ngFor="let price of menu.prices">{{price.createdAt}} - {{price.price}}</p>
+<div class="contianer">
+    <div class="container-up">
+        <div class="container-img">
+            <img class="img" src="../../../../../assets/img/default.png">
+        </div>
+        <div class="container-detail">
+            <p>ID: {{menu.id}}</p>
+            <p>Nombre: {{menu.name}}</p>
+            <p>Nombre corto: {{menu.short_name}}</p>
+            <p>Precio: ${{menu.price}}</p>
+            <p>Categoria: {{menu.category_name}}</p>
+        </div>
+    </div>
+
+    <div class="container-down">
+        <app-chart [prices]="menu.prices"></app-chart>
+    </div>
+</div>

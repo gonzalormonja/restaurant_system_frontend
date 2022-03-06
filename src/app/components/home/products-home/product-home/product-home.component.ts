@@ -13,8 +13,6 @@ export class ProductHomeComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.product.name = this.product.name;
-
     this.product.name =
       this.product.name.length < 40
         ? this.product.name

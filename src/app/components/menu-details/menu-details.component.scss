@@ -1,0 +1,25 @@
+.contianer {
+  padding: 20px;
+}
+.container-up {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.container-img {
+  width: 25vw;
+  height: 40vh;
+}
+.img {
+  width: 25vw;
+  height: 40vh;
+}
+.container-detail {
+  width: 65vw;
+  height: 40vh;
+}
+.container-down {
+  width: 80vw;
+  height: 30px;
+}

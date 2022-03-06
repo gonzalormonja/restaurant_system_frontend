@@ -4,23 +4,16 @@
             <h1>Inicio de sesión</h1>
             <form [formGroup]="loginForm" class="from" (ngSubmit)="submit()">
                 <div class="from-list">
-                    <input type="text" formControlName="email" id="email" placeholder="Email" autocomplete="off">
+                    <input type="text" formControlName="username" id="username" placeholder="Usuario" autocomplete="off">
                 </div>
                 <div class="from-list">
-                    <input type="password" formControlName="password" id="password" placeholder="Password"
+                    <input type="password" formControlName="password" id="password" placeholder="Contraseña"
                         autocomplete="off">
                 </div>
-                <p class="tip agree-tos">
-                    <a href="#" class="tip-right">Forgot password?</a>
-                </p>
                 <p class="error-message">Usuario y/o contraseña incorrecto</p>
                 <div class="submit-btn">
                     <button id="login">Iniciar sesión</button>
                 </div>
-                <p class="tip signup-tip">
-                    <span>¿No tienes una cuenta?</span>
-                    <a href="#">Registrate</a>
-                </p>
             </form>
         </div>
     </div>

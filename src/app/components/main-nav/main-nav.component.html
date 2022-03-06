@@ -2,15 +2,12 @@
   <mat-sidenav #drawer class="sidenav" [ngClass]="{hidden: !(isHandset$ | async)}" fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
-    <!-- <button type="button" aria-label="Toggle sidenav" mat-button (click)="drawer.toggle()"> -->
-      <!-- <mat-toolbar>Menu</mat-toolbar> -->
-    <!-- </button> -->
     <mat-nav-list>
       <a mat-list-item href="">Inicio</a>
       <a mat-list-item href="categories">Categorias</a>
       <a mat-list-item href="menus">Menus</a>
       <a mat-list-item href="ingredients">Ingredientes</a>
-      <!-- <a mat-list-item href="characteristics">Caracteristicas</a> -->
+      <a mat-list-item (click)="logout()">Cerrar sesión</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -19,12 +16,11 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <a href="">Inicio</a>
-      <a href="categories">Categorias</a>
-      <a href="ingredients">Ingredientes</a>
-      <!-- <a href="characteristics">Caracteristicas</a> -->
-      <a href="menus">Menus</a>
-      <a (click)="logout()" class="right">Cerrar sesión</a>
+      <a *ngIf="!(isHandset$ | async)" href="">Inicio</a>
+      <a *ngIf="!(isHandset$ | async)" href="categories">Categorias</a>
+      <a *ngIf="!(isHandset$ | async)" href="ingredients">Ingredientes</a>
+      <a *ngIf="!(isHandset$ | async)" href="menus">Menus</a>
+      <a *ngIf="!(isHandset$ | async)" (click)="logout()" class="right">Cerrar sesión</a>
     </mat-toolbar>
     <!-- Add Content Here -->
   </mat-sidenav-content>
