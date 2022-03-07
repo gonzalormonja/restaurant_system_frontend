@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CharacteristicService } from 'src/app/services/characteristic/characteristic.service';
 
 @Component({
   selector: 'app-characteristic',
   templateUrl: './characteristic.component.html',
-  styleUrls: ['./characteristic.component.scss']
+  styleUrls: ['./characteristic.component.scss'],
 })
-export class CharacteristicComponent implements OnInit {
+export class CharacteristicComponent {
   constructor(private characteristicService: CharacteristicService) {}
 
   formControl = new FormGroup({
-    name: new FormControl('', [Validators.required])
+    name: new FormControl('', [Validators.required]),
   });
-
-  ngOnInit(): void {}
 
   submit = () => {
     if (this.formControl.valid) {
@@ -28,5 +26,4 @@ export class CharacteristicComponent implements OnInit {
       );
     }
   };
-
 }

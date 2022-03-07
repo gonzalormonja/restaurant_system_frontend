@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Menu } from 'src/app/interfaces/menu';
 import { Data } from 'src/app/providers/data';
 import { MenuService } from 'src/app/services/menu/menu.service';
@@ -9,7 +9,7 @@ import { MenuService } from 'src/app/services/menu/menu.service';
   templateUrl: './menu-details.component.html',
   styleUrls: ['./menu-details.component.scss'],
 })
-export class MenuDetailsComponent implements OnInit {
+export class MenuDetailsComponent {
   menu: Menu = {
     id: null,
     name: null,
@@ -32,6 +32,4 @@ export class MenuDetailsComponent implements OnInit {
       });
     });
   }
-
-  ngOnInit(): void {}
 }

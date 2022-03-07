@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -6,8 +6,7 @@ import { Subject } from 'rxjs';
   templateUrl: './ingredient.component.html',
   styleUrls: ['./ingredient.component.scss'],
 })
-export class IngredientComponent implements OnInit {
+export class IngredientComponent {
   constructor() {}
   subject = new Subject();
-  ngOnInit(): void {}
 }
