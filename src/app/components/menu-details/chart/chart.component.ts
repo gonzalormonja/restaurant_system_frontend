@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
 
 @Component({
@@ -6,7 +6,7 @@ import { ChartData, ChartOptions } from 'chart.js';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent {
+export class ChartComponent implements OnChanges {
   @Input() prices: any = [];
 
   constructor() {}

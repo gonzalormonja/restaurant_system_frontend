@@ -6,8 +6,7 @@ import { Subject } from 'rxjs';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent {
   constructor() {}
   subject = new Subject();
-  ngOnInit(): void {}
 }
